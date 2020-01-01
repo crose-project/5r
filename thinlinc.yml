@@ -47,7 +47,32 @@
       dest: /opt/thinlinc/etc/conf.d/profiles.hconf
       regexp: ^show_intro=
       line: show_intro=false
-    tags: tl-customization
+
+  # VGL Ubuntu Desktop Profile
+  - name: ThinLinc; Copy ubuntuvgl.desktop to /usr/share/xessions/
+    tags: go
+    copy: 
+      dest: /usr/share/xsessions/
+      src: files/ubuntuvgl.desktop
+
+  - name: Thinlinc; Add 'ubuntuvgl' config at end of /opt/thinlinc/etc/conf.d/profiles.hconf
+    tags: go
+    blockinfile:
+      path: /opt/thinlinc/etc/conf.d/profiles.hconf
+      insertafter:
+      block: | 
+        [/profiles/ubuntuvgl]
+        xdg_session=ubuntuvgl
+        name=Ubuntu VGL
+        description=Gnome via VirtualGL
+        icon=ubuntu.png
+
+  - name: ThinLinc; Add ubuntuvgl profile to chooser
+    tags: go
+    lineinfile:
+      dest: /opt/thinlinc/etc/conf.d/profiles.hconf
+      regexp: ^order=
+      line: order=ubuntuvgl ubuntu
 
   # Last message to SysAdmin
   - debug: msg="thinlinc; {{ thinlinc_set_pw }}"

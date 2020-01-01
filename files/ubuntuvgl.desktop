@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Ubuntu VGL (Default)
+Comment=This session logs you into Ubuntu
+Exec=vglrun env GNOME_SHELL_SESSION_MODE=ubuntu gnome-session --session=ubuntu
+TryExec=gnome-shell
+Type=Application
+DesktopNames=ubuntuVGL:GNOME
+X-Ubuntu-Gettext-Domain=gnome-session-3.0-vgl

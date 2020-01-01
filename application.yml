@@ -1,0 +1,26 @@
+---  
+# file: application.yml
+
+- hosts: application
+  vars_files:
+    - vars/default.yml
+
+  tasks:
+    - name: Add the opera APT key
+      apt_key: url=http://deb.opera.com/archive.key state=present
+
+    - name: Application; Add PPA Opera stable
+      apt_repository: repo="deb http://deb.opera.com/opera/ stable non-free" state=present
+
+    - name: Add the Chrome APT key
+      apt_key: url=https://dl-ssl.google.com/linux/linux_signing_key.pub state=present
+
+    - name: Application; Add PPA Google Chrome
+      apt_repository: repo="deb http://dl.google.com/linux/chrome/deb/ stable main" state=present
+                                
+    - name: Application; standard packages
+      apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
+      loop: [ 'opera-stable', 'google-chrome-stable' ]
+
+
+
