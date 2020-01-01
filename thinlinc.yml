@@ -9,7 +9,7 @@
     - tl_server_pkg: /zfs/data/iso/thinlinc/tl-{{ tl_version }}-server.zip
     - tl_client_pkg: /zfs/data/iso/thinlinc/thinlinc-client_{{ tl_version }}-6323_amd64.deb
     - tl_answer: tl_setup_answer-{{ tl_version }}.txt
-    - thinlinc_set_pw: Please set a new Thinlinc webadmin password for user admin
+    - thinlinc_set_pw: Please set a new Thinlinc webadmin password for user admin 'python /opt/thinlinc/sbin/tl-gen-auth' >> '/opt/thinlinc/etc/conf.d/tlwebadm.hconf'
 
   user: "{{ ansible_user }}"
   tasks:
@@ -43,7 +43,7 @@
     shell: /opt/thinlinc/sbin/tl-setup -a /tmp/{{ tl_answer }}
 
   # Customization
-  - name: Disable profile chooser intro
+  - name: ThinLinc; Disable profile chooser intro
     lineinfile:
       dest: /opt/thinlinc/etc/conf.d/profiles.hconf
       regexp: ^show_intro=

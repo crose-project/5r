@@ -1,0 +1,14 @@
+---  
+# file: fixes.yml
+- hosts: all
+  vars_files:
+    - vars/default.yml
+
+  user: "{{ ansible_user }}"
+  tasks:
+
+    # https://github.com/TurboVNC/turbovnc/issues/47
+    - name: Bug/workaround for Ubuntu 18 / Gnome 3 popup 'Authentication is required to create a color profile'
+      copy:
+        src=files/45-allow.colord.pkla
+        dest=/etc/polkit-1/localauthority/50-local.d/

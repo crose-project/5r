@@ -15,7 +15,7 @@
 # Thinlinc Installation / Configuration
 - import_playbook: thinlinc.yml
 
-#- import_playbook: fixes.yml
+- import_playbook: fixes.yml
 
 #- import_playbook: kvm.yml
 
