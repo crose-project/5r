@@ -6,13 +6,13 @@
 # Install to trigger possible dependencies
 - import_playbook: virtualgl.yml
 
-# nVidia should be installed after first VirtualGL
+# nVidia should be installed after first VirtualGL installation.
 - import_playbook: nvidia.yml
 
 # Repeat this step to configure VirtualGL
 - import_playbook: virtualgl.yml
 
-#- import_playbook: thinlinc.yml
+- import_playbook: thinlinc.yml
 #- import_playbook: kvm.yml
 
 

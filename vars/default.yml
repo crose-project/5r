@@ -1,7 +1,3 @@
 ---
 ansible_user: root
 
-#tl_build: 5775
-# Keep trailing slash in path. Rsync requires it for proper copying.
-#tl_license_files_directory: /scratch/software/cendio-thinlinc/License/2018-06-12/
-
