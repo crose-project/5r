@@ -15,11 +15,17 @@
 # Thinlinc Installation / Configuration
 - import_playbook: thinlinc.yml
 
+# Various fixes
 - import_playbook: fixes.yml
 
-#- import_playbook: kvm.yml
+# KVM
+- import_playbook: kvm.yml
 
-- tasks:
-  # General Information to 'sysadmin', collected through the run
-  - debug: msg="site; {{ thinlinc_set_pw }}"
+- hosts: all
+  vars_files:
+    - vars/default.yml
+
+  tasks:
+    # General Information to 'sysadmin', collected through the run
+    - debug: msg="site; {{ thinlinc_set_pw }}"
 

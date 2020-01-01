@@ -4,7 +4,6 @@
   vars_files:
     - vars/default.yml
 
-  user: "{{ ansible_user }}"
   tasks:
     - name: Copy virtualgl.deb
       copy: 

@@ -1,4 +1,4 @@
 ---
-ansible_user: root
+#ansible_user: root
 
-#thinlinc_set_pw: ''
+thinlinc_set_pw: ''

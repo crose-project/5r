@@ -4,7 +4,6 @@
   vars_files:
     - vars/default.yml
 
-  user: "{{ ansible_user }}"
   tasks:
 
     # https://github.com/TurboVNC/turbovnc/issues/47

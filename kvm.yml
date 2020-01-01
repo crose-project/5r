@@ -5,7 +5,6 @@
   vars_files:
     - vars/default.yml
 
-  user: "{{ ansible_user }}"
   tasks:
     - name: standard packages
       apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
