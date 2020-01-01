@@ -42,6 +42,13 @@
   - name: ThinLinc; Configure
     shell: /opt/thinlinc/sbin/tl-setup -a /tmp/{{ tl_answer }}
 
+  # Customization
+  - name: Disable profile chooser intro
+    lineinfile:
+      dest: /opt/thinlinc/etc/conf.d/profiles.hconf
+      regexp: ^show_intro=
+      line: show_intro=false
+    tags: tl-customization
 
   # Last message to SysAdmin
   - debug: msg="thinlinc; {{ thinlinc_set_pw }}"
