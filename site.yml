@@ -1,6 +1,7 @@
 ---  
-
 # file: site.yml
+
+# General Setup
 - import_playbook: common.yml
 
 # Install to trigger possible dependencies
@@ -26,6 +27,4 @@
     - vars/default.yml
 
   tasks:
-    # General Information to 'sysadmin', collected through the run
-    - debug: msg="site; {{ thinlinc_set_pw }}"
 
