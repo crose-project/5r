@@ -12,7 +12,14 @@
 # Repeat this step to configure VirtualGL
 - import_playbook: virtualgl.yml
 
+# Thinlinc Installation / Configuration
 - import_playbook: thinlinc.yml
+
+- import_playbook: fixes.yml
+
 #- import_playbook: kvm.yml
 
+ tasks:
+  # General Information to 'sysadmin', collected through the run
+  - debug: msg="site; {{ thinlinc_set_pw }}"
 
