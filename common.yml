@@ -5,6 +5,7 @@
     - vars/default.yml
 
   tasks:
+
     - name: standard packages
       apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
       loop: [ 'net-tools', 'vim']
@@ -18,3 +19,4 @@
       template:
         src: files/bash_aliases
         dest: "/etc/skel/.bash_aliases"
+

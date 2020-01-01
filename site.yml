@@ -22,6 +22,9 @@
 # KVM
 - import_playbook: kvm.yml
 
+# General Application
+- import_playbook: application.yml
+
 - hosts: all
   vars_files:
     - vars/default.yml
