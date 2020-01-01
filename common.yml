@@ -1,0 +1,21 @@
+---
+# file: common.yml
+- hosts: all
+  vars_files:
+    - vars/default.yml
+
+  user: "{{ ansible_user }}"
+  tasks:
+    - name: standard packages
+      apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
+      loop: [ 'net-tools', 'vim']
+
+    - name: bash environment (console user, non gui)
+      template:
+        src: files/custom.sh
+        dest: "/etc/profile.d/custom.sh"
+
+    - name: bash environment (per user, gui)
+      template:
+        src: files/bash_aliases
+        dest: "/etc/skel/.bash_aliases"

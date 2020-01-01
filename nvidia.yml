@@ -1,0 +1,18 @@
+---
+# file: nvidia.yml
+- hosts: all
+  vars_files:
+    - vars/default.yml
+
+  user: "{{ ansible_user }}"
+  tasks:
+
+  - name: Add PPA graphics-drivers
+    apt_repository: 
+      repo: 'ppa:graphics-drivers/ppa'
+
+  - name: Install nVidia propriety driver (compile kernel module, be patient)
+    apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
+    loop: [ 'nvidia-driver-435']
+
+
