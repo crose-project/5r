@@ -50,13 +50,11 @@
 
   # VGL Ubuntu Desktop Profile
   - name: ThinLinc; Copy ubuntuvgl.desktop to /usr/share/xessions/
-    tags: go
     copy: 
       dest: /usr/share/xsessions/
       src: files/ubuntuvgl.desktop
 
   - name: Thinlinc; Add 'ubuntuvgl' config at end of /opt/thinlinc/etc/conf.d/profiles.hconf
-    tags: go
     blockinfile:
       path: /opt/thinlinc/etc/conf.d/profiles.hconf
       insertafter:
@@ -68,11 +66,20 @@
         icon=ubuntu.png
 
   - name: ThinLinc; Add ubuntuvgl profile to chooser
-    tags: go
     lineinfile:
       dest: /opt/thinlinc/etc/conf.d/profiles.hconf
       regexp: ^order=
       line: order=ubuntuvgl ubuntu
+
+  # thinlinc client    
+  - name: Copy tlclient.deb
+    copy: 
+      dest: /tmp/tlclient.deb
+      src: "{{ tl_client_pkg }}"
+
+  - name: Install tlclient
+    apt: deb=/tmp/tlclient.deb force=yes state=present
+
 
   # Last message to SysAdmin
   - debug: msg="thinlinc; {{ thinlinc_set_pw }}"
