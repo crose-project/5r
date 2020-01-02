@@ -6,19 +6,17 @@
     - vars/default.yml
 
   tasks:
-    - name: Add the opera APT key
+    - name: Application; Add Opera PPA key
       apt_key: url=http://deb.opera.com/archive.key state=present
-
-    - name: Application; Add PPA Opera stable
+    - name: Application; Add Opera PPA
       apt_repository: repo="deb http://deb.opera.com/opera/ stable non-free" state=present
 
-    - name: Add the Chrome APT key
+    - name: Application; Add Chrome PPA key
       apt_key: url=https://dl-ssl.google.com/linux/linux_signing_key.pub state=present
-
-    - name: Application; Add PPA Google Chrome
+    - name: Application; Add Google Chrome PPA
       apt_repository: repo="deb http://dl.google.com/linux/chrome/deb/ stable main" state=present
                                 
-    - name: Application; Nextcloud
+    - name: Application; Add Nextcloud PPA
       apt_repository: repo="ppa:nextcloud-devs/client"
                                 
     - name: Application; standard packages
