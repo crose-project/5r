@@ -69,7 +69,7 @@
     lineinfile:
       dest: /opt/thinlinc/etc/conf.d/profiles.hconf
       regexp: ^order=
-      line: order=ubuntuvgl ubuntu
+      line: order=ubuntuvgl ubuntu cinnamon
 
   # thinlinc client    
   - name: Copy tlclient.deb

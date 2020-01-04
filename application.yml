@@ -21,7 +21,7 @@
                                 
     - name: Application; standard packages
       apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
-      loop: [ 'opera-stable', 'google-chrome-stable', 'nextcloud-client', 'tomboy', 'keepassx', 'flameshot' ]
+      loop: [ 'opera-stable', 'google-chrome-stable', 'nextcloud-client', 'tomboy', 'keepassx', 'flameshot', 'git', 'cinnamon', 'prime-phylo' ]
 
 
 
