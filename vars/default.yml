@@ -3,4 +3,4 @@
 
 #thinlinc_set_pw: ''
 
-local_repo: /zfs/data/iso
+local_repo: '/zfs/data/iso'

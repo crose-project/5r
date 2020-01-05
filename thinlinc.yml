@@ -6,8 +6,8 @@
   vars:
     - tl_version: 4.11.0
     - tl_build: 6323
-    - tl_server_pkg: {{ local_repo}}/thinlinc/tl-{{ tl_version }}-server.zip
-    - tl_client_pkg: {{ local_repo}}/thinlinc/thinlinc-client_{{ tl_version }}-6323_amd64.deb
+    - tl_server_pkg: '{{ local_repo }}/thinlinc/tl-{{ tl_version }}-server.zip'
+    - tl_client_pkg: '{{ local_repo }}/thinlinc/thinlinc-client_{{ tl_version }}-6323_amd64.deb'
     - tl_answer: tl_setup_answer-{{ tl_version }}.txt
     - thinlinc_set_pw: Please set a new Thinlinc webadmin password for user admin 'python /opt/thinlinc/sbin/tl-gen-auth' >> '/opt/thinlinc/etc/conf.d/tlwebadm.hconf'
 
@@ -69,7 +69,7 @@
     lineinfile:
       dest: /opt/thinlinc/etc/conf.d/profiles.hconf
       regexp: ^order=
-      line: order=ubuntuvgl ubuntu cinnamon
+      line: order=ubuntuvgl ubuntu cinnamon mate
 
   # thinlinc client    
   - name: Copy tlclient.deb
@@ -79,6 +79,25 @@
 
   - name: Install tlclient
     apt: deb=/tmp/tlclient.deb force=yes state=present
+
+  - name: Application; Install GUI
+    apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
+    loop: [ 'cinnamon', 'mate' ]
+
+
+  - name: ThinLinc; Update cinnamon Desktop file with vglrun
+    lineinfile:
+      dest: /usr/share/xsessions/cinnamon.desktop
+      regexp: ^Exec=
+      line: Exec=vglrun cinnamon-session-cinnamon
+
+  - name: ThinLinc; Update mate Desktop file with vglrun
+    lineinfile:
+      dest: /usr/share/xsessions/mate.desktop
+      regexp: ^Exec=
+      line: Exec=vglrun mate-session
+
+
 
 
   # Last message to SysAdmin
