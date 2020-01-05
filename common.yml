@@ -6,17 +6,17 @@
 
   tasks:
 
-    - name: standard packages
+    - name: Common; standard packages
       apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
       loop: [ 'net-tools', 'vim']
 
-    - name: bash environment (console user, non gui)
+    - name: Common; bash environment (console user, non gui)
       template:
         src: files/custom.sh
         dest: "/etc/profile.d/custom.sh"
 
-    - name: bash environment (per user, gui)
+    - name: Common; /etc/skel bash environment
       template:
-        src: files/bash_aliases
-        dest: "/etc/skel/.bash_aliases"
-
+        src: "files/{{ item }}"
+        dest: /etc/skel/
+      loop: [ '.bash_aliases' ,'.bashrc' ]
