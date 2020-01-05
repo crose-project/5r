@@ -19,9 +19,26 @@
     - name: Application; Add Nextcloud PPA
       apt_repository: repo="ppa:nextcloud-devs/client"
                                 
-    - name: Application; standard packages
+    - name: Application; Install standard packages
       apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
-      loop: [ 'opera-stable', 'google-chrome-stable', 'nextcloud-client', 'tomboy', 'keepassx', 'flameshot', 'git', 'cinnamon', 'treesheets', 'freeplane' ]
+      loop: [ 'opera-stable', 'google-chrome-stable', 'nextcloud-client', 'tomboy', 'keepassx', 'git', 'cinnamon', 'treesheets', 'freeplane', 'copyq' ]
 
 
+    - name: Application; copy local flameshot
+      copy: 
+        dest: /tmp/flameshot.deb
+        src: "{{ local_repo }}/flameshot_0.6.0_bionic_x86_64.deb"
+
+    - name: Application; Install flameshot
+      apt: deb="/tmp/flameshot.deb" force=yes state=present
+
+
+    - name: Application; copy local rocket-chat
+      copy: 
+        dest: /tmp/rocket-chat.deb
+        src: "{{ local_repo }}/rocketchat_2.17.2_amd64.deb"
+
+    - name: Application; Install rocket-chat
+      apt: deb="/tmp/rocket-chat.deb" force=yes state=present
+   
 
