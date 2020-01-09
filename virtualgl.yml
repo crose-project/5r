@@ -5,14 +5,19 @@
     - vars/default.yml
 
   tasks:
-    - name: Copy virtualgl.deb
+    - name: virtualgl; Copy virtualgl.deb
       copy: 
         dest: /tmp/vgl.deb
-        src: {{ local_repo}}/virtualgl/virtualgl_2.6.3_amd64.deb
+        src: "{{ local_repo }}/virtualgl/virtualgl_2.6.3_amd64.deb"
 
-    - name: Install VirtualGL
+    - name: virtualgl; Install VirtualGL
       apt: deb=/tmp/vgl.deb force=yes state=present
 
-    - name: Configure VirtualGL  
+    - name: virtualgl; Configure VirtualGL  
       shell: /opt/VirtualGL/bin/vglserver_config -config +s +f +t
+
+    # https://cdn.rawgit.com/VirtualGL/virtualgl/2.6.3/doc/index.html#hd0012
+    - name: virtualgl; Setuid for libvglfaker.so, libdlfaker.so
+      shell: chmod u+s /usr/lib/libvglfaker.so /usr/lib/libdlfaker.so
+
 
