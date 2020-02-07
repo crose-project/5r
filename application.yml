@@ -22,7 +22,7 @@
     - name: Application; Install standard packages
       apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
       loop: [ 'opera-stable', 'google-chrome-stable', 'nextcloud-client', 'tomboy', 'keepassx', 'git', 'treesheets', 'freeplane', 'copyq', 'meld', 'clementine',
-              'audacity', 'easytag', 'easytag-nautilus' ]
+              'audacity', 'easytag', 'easytag-nautilus', 'pwgen' ]
 
 
     - name: Application; copy local flameshot
