@@ -8,7 +8,7 @@
 
     - name: Common; standard packages
       apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
-      loop: [ 'net-tools', 'vim', 'unzip', 'atop', 'iftop', 'zfsutils-linux', 'ubuntu-gnome-desktop' ]
+      loop: [ 'net-tools', 'vim', 'unzip', 'atop', 'iftop', 'zfsutils-linux', 'xterm' ]
 
     - name: Common; bash environment (console user, non gui)
       template:

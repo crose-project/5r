@@ -94,7 +94,7 @@
 
     - name: Application; Install GUI
       apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
-      loop: [ 'cinnamon', 'mate' ]
+      loop: [ 'cinnamon', 'mate', 'ubuntu-gnome-desktop' ]
 
 
     - name: ThinLinc; Update cinnamon Desktop file with vglrun
@@ -108,9 +108,6 @@
         dest: /usr/share/xsessions/mate.desktop
         regexp: ^Exec=
         line: Exec=vglrun mate-session
-
-
-
 
     # Last message to SysAdmin
     - debug: msg="thinlinc; {{ thinlinc_set_pw }}"
