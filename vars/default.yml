@@ -4,3 +4,4 @@
 #thinlinc_set_pw: ''
 
 local_repo: '/zfs/data/iso'
+mail_root: 'root@5rose.ch'

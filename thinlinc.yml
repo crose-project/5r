@@ -17,9 +17,10 @@
     - tl_version: 4.12.0
     - tl_build: 6517
     - tl_server_pkg: '{{ local_repo }}/thinlinc/tl-{{ tl_version }}-server.zip'
-    - tl_client_pkg: '{{ local_repo }}/thinlinc/thinlinc-client_{{ tl_version }}-{{ tl_build }}_amd64.deb'
+    # Client version might differ from server - version number hardcoded cause not used elsewhere.
+    - tl_client_pkg: '{{ local_repo }}/thinlinc/thinlinc-client_4.12.0_6517_amd64.deb'
     - tl_answer: tl_setup_answer-{{ tl_version }}.txt
-    - thinlinc_set_pw: Please set a new Thinlinc webadmin password for user admin 'python /opt/thinlinc/sbin/tl-gen-auth' >> '/opt/thinlinc/etc/conf.d/tlwebadm.hconf'
+    - thinlinc_set_pw: Please set a new Thinlinc webadmin password for user admin 'python /opt/thinlinc/sbin/tl-gen-auth' in file '/opt/thinlinc/etc/conf.d/tlwebadm.hconf'
 
   tasks:
 
