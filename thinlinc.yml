@@ -1,13 +1,23 @@
 ---
 # file: thinlinc.yml
+
+#
+# Preparation Steps for a new version:
+#
+# - copy tl-{{ tl_version }}-server.zip /zfs/data/iso/thinlinc/
+# - copy thinlinc-client_{{ tl_version }}-6517_amd64.deb /zfs/data/iso/thinlinc/
+# - set: tl_version, tl_build (Check the archive for the build number - packages/thinlinc-vsm-4.12.0-6517)
+# - create new answer file: cp files/tl_setup_answer-4.11.0.txt files/tl_setup_answer-4.12.0.txt
+# - after installing, check if there are new options for the answerfile: /opt/thinlinc/sbin/tl-setup -g /tmp/out.txt
+
 - hosts: thinlinc
   vars_files:
     - vars/default.yml
   vars:
-    - tl_version: 4.11.0
-    - tl_build: 6323
+    - tl_version: 4.12.0
+    - tl_build: 6517
     - tl_server_pkg: '{{ local_repo }}/thinlinc/tl-{{ tl_version }}-server.zip'
-    - tl_client_pkg: '{{ local_repo }}/thinlinc/thinlinc-client_{{ tl_version }}-6323_amd64.deb'
+    - tl_client_pkg: '{{ local_repo }}/thinlinc/thinlinc-client_{{ tl_version }}-{{ tl_build }}_amd64.deb'
     - tl_answer: tl_setup_answer-{{ tl_version }}.txt
     - thinlinc_set_pw: Please set a new Thinlinc webadmin password for user admin 'python /opt/thinlinc/sbin/tl-gen-auth' >> '/opt/thinlinc/etc/conf.d/tlwebadm.hconf'
 
@@ -15,9 +25,10 @@
 
   - name: ThinLinc; Prerequisites
     apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
-    loop: [ 'python', 'python-gtk2', 'python-apt', 'python-pyasn1',  'python-ldap' ]
+    loop: [ 'python', 'python-gtk2', 'python-apt', 'python-pyasn1',  'python-ldap', 'unzip' ]
 
-  - name: ThinLinc; Copy tlserver.zip and unpack
+  # If unarchive fails, take care that 'unzip' is installed.
+  - name: ThinLinc; Copy tl-<version>-server.zip and unpack
     unarchive: 
       dest: /tmp
       src: "{{ tl_server_pkg }}"

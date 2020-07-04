@@ -11,3 +11,10 @@
       copy:
         src=files/45-allow.colord.pkla
         dest=/etc/polkit-1/localauthority/50-local.d/
+        
+    # After Google chrome installation, the repo is listed two times
+    - name: Remove doubled google chrome repo
+      file:
+        path=/etc/apt/sources.list.d/dl_google_com_linux_chrome_deb.list
+        state=absent
+

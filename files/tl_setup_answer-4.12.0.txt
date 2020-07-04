@@ -1,0 +1,55 @@
+# ThinLinc tl-setup answers file
+#
+# Edit this file to suit your systems and run:
+#  /opt/thinlinc/sbin/tl-setup -a THIS-FILE
+
+# Install pygtk packages?
+install-pygtk=yes
+
+# Send administrative messages to:
+email-address=carsten@5rose.ch
+
+# Set up SELinux policy module?
+setup-selinux=no
+
+# Set up the nearest printing queue?
+setup-nearest=no
+
+# Configure as master or agent
+server-type=master
+
+# Configure the local firewall for ThinLinc services?
+setup-firewall=no
+
+# Install python-ldap packages?
+install-python-ldap=yes
+
+# Set up AppArmor configuration?
+setup-apparmor=yes
+
+# What should tl-setup do when it encounters a question without a matching answer in the answer file?
+missing-answer=abort
+
+# Install nfs client packages?
+install-nfs=yes
+
+# Set up the thinlocal printing queue?
+setup-thinlocal=yes
+
+# Install OpenSSH server?
+install-sshd=yes
+
+# Password for tlwebadm (generate with "python /opt/thinlinc/sbin/tl-gen-auth"):
+# Outdated cr PW
+tlwebadm-password=$6$c937340a75e77170$YF3T0wrqmQy.vtRhcH9q9GJYObSFbyxjVrjtQG0boVLve9Sqz/OZFgVYNGwYze0GE15diS2a6v9LAOChXCiAl0
+
+# Accept the End User License Agreement
+accept-eula=yes
+
+# How should old Hiveconf files be handled?
+# migrate-conf=parameters|old|ignore
+migrate-conf=ignore
+
+# Install required libraries and binaries?
+install-required-libs=yes
+
