@@ -23,93 +23,93 @@
 
   tasks:
 
-  - name: ThinLinc; Prerequisites
-    apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
-    loop: [ 'python', 'python-gtk2', 'python-apt', 'python-pyasn1',  'python-ldap', 'unzip' ]
+    - name: ThinLinc; Prerequisites
+      apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
+      loop: [ 'python', 'python-gtk2', 'python-apt', 'python-pyasn1',  'python-ldap', 'unzip' ]
 
-  # If unarchive fails, take care that 'unzip' is installed.
-  - name: ThinLinc; Copy tl-<version>-server.zip and unpack
-    unarchive: 
-      dest: /tmp
-      src: "{{ tl_server_pkg }}"
- 
-  - name: ThinLinc; Install Packages
-    apt: deb=/tmp/tl-{{ tl_version }}-server/packages/{{ item }} force=yes state=present
-    with_items:
-      # - thinlinc-rdesktop_{{ tl_version }}-{{ tl_build }}_amd64.deb
-      - thinlinc-tladm_{{ tl_version }}-{{ tl_build }}_amd64.deb
-      - thinlinc-tlmisc-libs32_{{ tl_version }}-{{ tl_build }}_amd64.deb
-      - thinlinc-tlmisc-libs_{{ tl_version }}-{{ tl_build }}_amd64.deb
-      - thinlinc-tlmisc_{{ tl_version }}-{{ tl_build }}_amd64.deb
-      - thinlinc-tlprinter_{{ tl_version }}-{{ tl_build }}_all.deb
-      - thinlinc-vnc-server_{{ tl_version }}-{{ tl_build }}_amd64.deb
-      - thinlinc-vsm_{{ tl_version }}-{{ tl_build }}_amd64.deb
-      - thinlinc-webaccess_{{ tl_version }}-{{ tl_build }}_all.deb
- 
-  - name: ThinLinc; Copy answer file
-    template: src=files/{{ tl_answer }} dest=/tmp/
+    # If unarchive fails, take care that 'unzip' is installed.
+    - name: ThinLinc; Copy tl-<version>-server.zip and unpack
+      unarchive: 
+        dest: /tmp
+        src: "{{ tl_server_pkg }}"
+   
+    - name: ThinLinc; Install Packages
+      apt: deb=/tmp/tl-{{ tl_version }}-server/packages/{{ item }} force=yes state=present
+      with_items:
+        # - thinlinc-rdesktop_{{ tl_version }}-{{ tl_build }}_amd64.deb
+        - thinlinc-tladm_{{ tl_version }}-{{ tl_build }}_amd64.deb
+        - thinlinc-tlmisc-libs32_{{ tl_version }}-{{ tl_build }}_amd64.deb
+        - thinlinc-tlmisc-libs_{{ tl_version }}-{{ tl_build }}_amd64.deb
+        - thinlinc-tlmisc_{{ tl_version }}-{{ tl_build }}_amd64.deb
+        - thinlinc-tlprinter_{{ tl_version }}-{{ tl_build }}_all.deb
+        - thinlinc-vnc-server_{{ tl_version }}-{{ tl_build }}_amd64.deb
+        - thinlinc-vsm_{{ tl_version }}-{{ tl_build }}_amd64.deb
+        - thinlinc-webaccess_{{ tl_version }}-{{ tl_build }}_all.deb
+   
+    - name: ThinLinc; Copy answer file
+      template: src=files/{{ tl_answer }} dest=/tmp/
 
-  - name: ThinLinc; Configure
-    shell: /opt/thinlinc/sbin/tl-setup -a /tmp/{{ tl_answer }}
+    - name: ThinLinc; Configure
+      shell: /opt/thinlinc/sbin/tl-setup -a /tmp/{{ tl_answer }}
 
-  # Customization
-  - name: ThinLinc; Disable profile chooser intro
-    lineinfile:
-      dest: /opt/thinlinc/etc/conf.d/profiles.hconf
-      regexp: ^show_intro=
-      line: show_intro=false
+    # Customization
+    - name: ThinLinc; Disable profile chooser intro
+      lineinfile:
+        dest: /opt/thinlinc/etc/conf.d/profiles.hconf
+        regexp: ^show_intro=
+        line: show_intro=false
 
-  # VGL Ubuntu Desktop Profile
-  - name: ThinLinc; Copy ubuntuvgl.desktop to /usr/share/xessions/
-    copy: 
-      dest: /usr/share/xsessions/
-      src: files/ubuntuvgl.desktop
+    # VGL Ubuntu Desktop Profile
+    - name: ThinLinc; Copy ubuntuvgl.desktop to /usr/share/xessions/
+      copy: 
+        dest: /usr/share/xsessions/
+        src: files/ubuntuvgl.desktop
 
-  - name: Thinlinc; Add 'ubuntuvgl' config at end of /opt/thinlinc/etc/conf.d/profiles.hconf
-    blockinfile:
-      path: /opt/thinlinc/etc/conf.d/profiles.hconf
-      insertafter:
-      block: | 
-        [/profiles/ubuntuvgl]
-        xdg_session=ubuntuvgl
-        name=Ubuntu VGL
-        description=Gnome via VirtualGL
-        icon=ubuntu.png
+    - name: Thinlinc; Add 'ubuntuvgl' config at end of /opt/thinlinc/etc/conf.d/profiles.hconf
+      blockinfile:
+        path: /opt/thinlinc/etc/conf.d/profiles.hconf
+        insertafter:
+        block: | 
+          [/profiles/ubuntuvgl]
+          xdg_session=ubuntuvgl
+          name=Ubuntu VGL
+          description=Gnome via VirtualGL
+          icon=ubuntu.png
 
-  - name: ThinLinc; Add ubuntuvgl profile to chooser
-    lineinfile:
-      dest: /opt/thinlinc/etc/conf.d/profiles.hconf
-      regexp: ^order=
-      line: order=ubuntuvgl ubuntu cinnamon mate
+    - name: ThinLinc; Add ubuntuvgl profile to chooser
+      lineinfile:
+        dest: /opt/thinlinc/etc/conf.d/profiles.hconf
+        regexp: ^order=
+        line: order=ubuntuvgl ubuntu cinnamon mate
 
-  # thinlinc client    
-  - name: Copy tlclient.deb
-    copy: 
-      dest: /tmp/tlclient.deb
-      src: "{{ tl_client_pkg }}"
+    # thinlinc client    
+    - name: Copy tlclient.deb
+      copy: 
+        dest: /tmp/tlclient.deb
+        src: "{{ tl_client_pkg }}"
 
-  - name: Install tlclient
-    apt: deb=/tmp/tlclient.deb force=yes state=present
+    - name: Install tlclient
+      apt: deb=/tmp/tlclient.deb force=yes state=present
 
-  - name: Application; Install GUI
-    apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
-    loop: [ 'cinnamon', 'mate' ]
-
-
-  - name: ThinLinc; Update cinnamon Desktop file with vglrun
-    lineinfile:
-      dest: /usr/share/xsessions/cinnamon.desktop
-      regexp: ^Exec=
-      line: Exec=vglrun cinnamon-session-cinnamon
-
-  - name: ThinLinc; Update mate Desktop file with vglrun
-    lineinfile:
-      dest: /usr/share/xsessions/mate.desktop
-      regexp: ^Exec=
-      line: Exec=vglrun mate-session
+    - name: Application; Install GUI
+      apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
+      loop: [ 'cinnamon', 'mate' ]
 
 
+    - name: ThinLinc; Update cinnamon Desktop file with vglrun
+      lineinfile:
+        dest: /usr/share/xsessions/cinnamon.desktop
+        regexp: ^Exec=
+        line: Exec=vglrun cinnamon-session-cinnamon
+
+    - name: ThinLinc; Update mate Desktop file with vglrun
+      lineinfile:
+        dest: /usr/share/xsessions/mate.desktop
+        regexp: ^Exec=
+        line: Exec=vglrun mate-session
 
 
-  # Last message to SysAdmin
-  - debug: msg="thinlinc; {{ thinlinc_set_pw }}"
+
+
+    # Last message to SysAdmin
+    - debug: msg="thinlinc; {{ thinlinc_set_pw }}"

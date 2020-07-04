@@ -25,6 +25,9 @@
 # General Application
 - import_playbook: application.yml
 
+# Auto Update
+- import_playbook: autoupdate.yml
+
 - hosts: all
   vars_files:
     - vars/default.yml

@@ -1,0 +1,56 @@
+---
+# file: autoupdate.yml
+- hosts: all
+  vars_files:
+    - vars/default.yml
+
+  tasks:
+
+    - name: Auto update; unattended-upgrades
+      apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
+      loop: [ 'unattended-upgrades' ]
+      tags: autoupdate
+
+    - name: Configure autoupdate ...-updates
+      tags: autoupdate
+      lineinfile:
+        dest: /etc/apt/apt.conf.d/50unattended-upgrades
+        regexp: \$\{distro_id\}:\$\{distro_codename\}-updates
+        line: '        "${distro_id}:${distro_codename}-updates";'
+        
+    - name: Configure autoupdate - Mail
+      lineinfile:
+        dest: /etc/apt/apt.conf.d/50unattended-upgrades
+        regexp: Unattended-Upgrade::Mail "
+        line: Unattended-Upgrade::Mail "root@5rose.ch";       
+      tags: autoupdate
+
+    - name: Configure autoupdate - MailOnlyOnError
+      lineinfile:
+        dest: /etc/apt/apt.conf.d/50unattended-upgrades
+        regexp: MailOnlyOnError
+        line: Unattended-Upgrade::MailOnlyOnError "true";      
+      tags: autoupdate
+
+    - name: Configure autoupdate - Remove-Unused-Kernel-Packages
+      lineinfile:
+        dest: /etc/apt/apt.conf.d/50unattended-upgrades
+        regexp: Remove-Unused-Kernel-Packages
+        line: Unattended-Upgrade::Remove-Unused-Kernel-Packages "true"; 
+      tags: autoupdate
+
+    - name: Configure autoupdate - Automatic-Reboot
+      lineinfile:
+        dest: /etc/apt/apt.conf.d/50unattended-upgrades
+        regexp: Automatic-Reboot "
+        line: Unattended-Upgrade::Automatic-Reboot "true";
+      tags: autoupdate
+
+    - name: Configure autoupdate - Automatic-Reboot-Time
+      lineinfile:
+        dest: /etc/apt/apt.conf.d/50unattended-upgrades
+        regexp: Automatic-Reboot-Time
+        line: Unattended-Upgrade::Automatic-Reboot-Time "02:38";
+      tags: autoupdate
+
+
