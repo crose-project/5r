@@ -10,7 +10,7 @@ ansible-plabook site.yml
 # Playbooks only for host 'tr'
 ansible-plabook site.yml --limit tr
 
-# Only play tasks with tag 'autotupdate'
+# Only play tasks with tag 'autoupdate'
 ansible-plabook site.yml --tags autoupdate
 
 # Offen
