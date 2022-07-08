@@ -5,16 +5,16 @@
 #
 
 # Do all
-ansible-plabook site.yml 
+ansible-playbook site.yml 
 
 # Playbooks only for host 'tr'
-ansible-plabook site.yml --limit tr
+ansible-playbook site.yml --limit tr
 
 # Only play tasks with tag 'autoupdate'
-ansible-plabook site.yml --tags autoupdate
+ansible-playbook site.yml --tags autoupdate
 
 # Offen
-kdenlive, yoututbe-dl.sh, yoututbe-dl.cr.sh
+kdenlive, youtube-dl.sh, youtube-dl.cr.sh
 auto update
 
 # Do not forget to set a TL web Admin Password
